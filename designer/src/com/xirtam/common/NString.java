@@ -3,16 +3,19 @@ package com.xirtam.common;
 public class NString {
     // application
     public static final String TITLE = "Percent Layout Designer";
-    public static final String JSON = "xml";
-    public static final String DATA_END = ".json";
-    public static final String DATA_NAME = "*.json";
-    public static final String JSON_FILE = "json file";
+    public static final String XML = "xml";
+    public static final String IMG_TYPE = "jpg";
+    public static final String DATA_END = ".xml";
+    public static final String DATA_NAME = "*.xml";
+    public static final String XML_FILE = "xml file";
+    public static final String IMG_FILE = "image file";
     public static final String LOOK_AND_FEEL = "Nimbus";
     public static final String COMPANY_HOME_PAGE = "http://www.lovegsm.com/";
 
     // Toolbar
     public static final String FILE = "File";
     public static final String OPEN = "Open(O)";
+    public static final String OPEN_IMG = "Open Img(I)";
     public static final String COPY = "Copy(C)";
     public static final String PASTE = "Paste(V)";
     public static final String DELETE = "Delete(D)";

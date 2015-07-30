@@ -1,10 +1,6 @@
 package com.xirtam.ui;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
@@ -27,24 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Vector;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
@@ -107,6 +86,8 @@ public class Launcher extends KeyAdapter implements MouseListener,
     private Vector<Character> egg;
     public Container container;
     public Vector<XMessage> messages = new Vector<XMessage>();
+    private JMenuItem itemOpenImg;
+    private Image bgImg;
 
     // public CPTreeNode rootTreeNode;
 
@@ -260,7 +241,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
     }
 
     private void initRadio() {
-        rdbtnJson = new JRadioButton(NString.JSON);
+        rdbtnJson = new JRadioButton(NString.XML);
         rdbtnJson.setOpaque(false);
         rdbtnJson.setBounds(157, 493, 80, 23);
         container.add(rdbtnJson);
@@ -341,6 +322,9 @@ public class Launcher extends KeyAdapter implements MouseListener,
             // 黑框提示
             public void paint(java.awt.Graphics g) {
                 super.paint(g);
+                if (bgImg != null) {
+                    g.drawImage(bgImg, 0, 0, null);
+                }
                 if (messages.size() > 0) {
                     g.setColor(backColor);
                     int range = 5;
@@ -358,7 +342,9 @@ public class Launcher extends KeyAdapter implements MouseListener,
                         repaint();
                     }
                 }
-            };
+            }
+
+            ;
 
         };
         windowPanel.setBackground(Color.white);
@@ -412,6 +398,10 @@ public class Launcher extends KeyAdapter implements MouseListener,
         itemOpen = new JMenuItem(NString.OPEN);
         itemOpen.addActionListener(this);
         mnFile.add(itemOpen);
+
+        itemOpenImg = new JMenuItem(NString.OPEN_IMG);
+        itemOpenImg.addActionListener(this);
+        mnFile.add(itemOpenImg);
 
         itemEJD = new JMenuItem(NString.EXPORT_JSON_DATA);
         itemEJD.addActionListener(this);
@@ -590,11 +580,11 @@ public class Launcher extends KeyAdapter implements MouseListener,
 
         // dragEnter(),dragExit(),dragOver(),dropActionChanged()这几个方法只有在调用放置目标监听器中
         // 的对应方法并且防止目标不拒绝操作后，才调用这个拖动源的方法。
+
         /**
          * 在光标进入放置组件的显示区时调用
          *
-         * @param e
-         *            DragSourceDragEvent
+         * @param e DragSourceDragEvent
          */
         public void dragEnter(DragSourceDragEvent e) {
             // 设置光标
@@ -612,8 +602,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
         /**
          * 在光标退出放置组件的显示区时发生
          *
-         * @param e
-         *            DragSourceEvent
+         * @param e DragSourceEvent
          */
         public void dragExit(DragSourceEvent e) {
         }
@@ -621,8 +610,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
         /**
          * 在光标进入放置组件显示区之后移动时调用
          *
-         * @param e
-         *            DragSourceDragEvent
+         * @param e DragSourceDragEvent
          */
         public void dragOver(DragSourceDragEvent e) {
         }
@@ -630,8 +618,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
         /**
          * 选择放置操作的修饰键的状态变化
          *
-         * @param e
-         *            DragSourceDragEvent
+         * @param e DragSourceDragEvent
          */
         public void dropActionChanged(DragSourceDragEvent e) {
 
@@ -640,8 +627,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
         /**
          * 放置发生并调用DropTargetListener的drop()方法后，调用dragDropEnd()方法， 告诉拖动源放置已经完成
          *
-         * @param e
-         *            DragSourceDropEvent
+         * @param e DragSourceDropEvent
          */
         public void dragDropEnd(DragSourceDropEvent e) {
             // getDropSuccess()对应DropTargetListener的drop()方法调用dropcomplete()时指目标指定的值
@@ -708,6 +694,8 @@ public class Launcher extends KeyAdapter implements MouseListener,
             showSave();
         } else if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
             showClear();
+        } else if (e.getKeyCode() == KeyEvent.VK_I && e.isControlDown()) {
+            showOpenImg();
         }
     }
 
@@ -721,13 +709,13 @@ public class Launcher extends KeyAdapter implements MouseListener,
             }
         try {
             if (sb.toString().equals(
-                    new String(new byte[] { 109, 97, 116, 114, 105, 120 },
+                    new String(new byte[]{109, 97, 116, 114, 105, 120},
                             "utf-8"))) {
                 JOptionPane.showMessageDialog(rootFrame,
                         Integer.parseInt("2cc8aae1", 16)
-                                + new String(new byte[] { 64, 113, 113, 46, 99,
-                                111, 109, }), new String(new byte[] {
-                                101, 109, 97, 105, 108, }),
+                                + new String(new byte[]{64, 113, 113, 46, 99,
+                                111, 109,}), new String(new byte[]{
+                                101, 109, 97, 105, 108,}),
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (UnsupportedEncodingException e1) {
@@ -759,6 +747,8 @@ public class Launcher extends KeyAdapter implements MouseListener,
             showSave();
         } else if (hashCode == itemOpen.hashCode()) {
             showOpen();
+        } else if (hashCode == itemOpenImg.hashCode()) {
+            showOpenImg();
         } else if (hashCode == itemCopy.hashCode()) {
             XNodeFactory.saveCopy();
         } else if (hashCode == itemPaste.hashCode()) {
@@ -854,7 +844,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
     private void showOpen() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                NString.JSON_FILE, NString.JSON);
+                NString.XML_FILE, NString.XML);
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(rootFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -871,6 +861,19 @@ public class Launcher extends KeyAdapter implements MouseListener,
                         JOptionPane.INFORMATION_MESSAGE);
                 e2.printStackTrace();
             }
+        }
+    }
+
+    private void showOpenImg() {
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                NString.IMG_FILE, NString.IMG_TYPE);
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(rootFrame);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            bgImg = new ImageIcon(selectedFile.getAbsolutePath()).getImage();
+            windowPanel.repaint();
         }
     }
 }
