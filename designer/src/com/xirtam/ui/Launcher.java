@@ -676,6 +676,7 @@ public class Launcher extends KeyAdapter implements MouseListener,
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //key map
         if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown()) {
             XNodeFactory.saveCopy();
         } else if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown()) {
